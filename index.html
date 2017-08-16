@@ -16,11 +16,11 @@ $.ajax({
         var rows = root.find("table tr:not(:has(th))");  
         $.each(rows, function(index, value) {
             var datatest = $(this).find("td");
-            document.write(datatest);
+            console.log(datatest);
         });
     },  
     error: function() {
-        return document.write("error");
+        return console.log("error");
     }
 });
 </script>
