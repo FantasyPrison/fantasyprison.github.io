@@ -1,27 +1,25 @@
 <html>
 Hello World
-
+<div id="article"></div>
 <script src="https://code.jquery.com/jquery-1.11.0.min.js">
-var convertToInt;
-var allData = [];
-
-$.ajax({
-    url: "https://en.wikipedia.org/wiki/Demographics_of_Europe",
-    type: 'GET',
-    cache: false,
-    success: function(data) {
-        var root, body, table;
-        root = $("<div></div>")
-        root.html(data.responseText)
-        var rows = root.find("table tr:not(:has(th))");  
-        $.each(rows, function(index, value) {
-            var datatest = $(this).find("td");
-            document.write(datatest);
-        });
-    },  
-    error: function() {
-        return console.log("error");
-    }
+$(document).ready(function(){
+ 
+    $.ajax({
+        type: "GET",
+        url: "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=List_of_suspensions_in_the_National_Football_League&callback=?",
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+ 
+            var markup = data.parse.text["*"];
+            var blurb = $('<div></div>').html(markup);
+            $('#article').html($(blurb).find('p'));
+ 
+        },
+        error: function (errorMessage) {
+        }
+    });
 });
 </script>
 
