@@ -2,7 +2,27 @@
 Hello World
 
 <script>
-document.write(5+5);
+var convertToInt;
+var allData = [];
 
+$.ajax({
+    url: "http://en.wikipedia.org/wiki/Demographics_of_Europe",
+    type: 'GET',
+    cache: false,
+    success: function(data) {
+        var root, body, table;
+        root = $("<div></div>")
+        root.html(data.responseText)
+        var rows = root.find("table tr:not(:has(th))");  
+        $.each(rows, function(index, value) {
+            var datatest = $(this).find("td");
+            document.write(datatest);
+        });
+    },  
+    error: function() {
+        return console.log("error");
+    }
+});
 </script>
+
 </html>
